@@ -43,8 +43,9 @@ static unsigned char itoa64[] = /* 0 ... 63 => ascii - 64 */
 #define CRYPT_UNIX_SALT_LENGTH 2
 #define CRYPT_MD5_SALT_LENGTH 8
 #define CRYPT_SHA_SALT_LENGTH 16
+#define CRYPT_YESCRYPT_SALT_LENGTH 24
 
-#define CRYPT_SALT_STRING_MAXLEN CRYPT_SHA_SALT_LENGTH + 1
+#define CRYPT_SALT_STRING_MAXLEN CRYPT_YESCRYPT_SALT_LENGTH + 1
 
 int
 crypt_pw_cmp(const char *userpwd, const char *dbpwd)
@@ -123,4 +124,9 @@ char *
 crypt_pw_sha512_enc(const char *pwd)
 {
     return crypt_pw_enc_by_hash(pwd, CRYPT_SHA_SALT_LENGTH, "$6$");
+}
+char *
+crypt_pw_yescrypt_enc(const char *pwd)
+{
+    return crypt_pw_enc_by_hash(pwd, CRYPT_YESCRYPT_SALT_LENGTH, "$y$j9T$");
 }
